@@ -7,7 +7,7 @@ import (
 
 func main() {
 	var n music.Note = "E"
-	n, _ = music.Transpose(n)
+	n, _ = music.TransposeSemitone(n)
 	fmt.Println(n)
 
 	var i music.Interval = 7

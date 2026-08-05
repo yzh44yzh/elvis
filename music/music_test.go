@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func Test_Transpose(t *testing.T) {
+func Test_TransposeSemitone(t *testing.T) {
 	pairs := [][]Note{
 		{"A", "A#"},
 		{"A#", "B"},
@@ -16,7 +16,7 @@ func Test_Transpose(t *testing.T) {
 	}
 
 	for _, pair := range pairs {
-		result, err := Transpose(pair[0])
+		result, err := TransposeSemitone(pair[0])
 
 		if err != nil {
 			t.Errorf("incorrect err, expecting nil, got '%s'", err)
@@ -25,6 +25,14 @@ func Test_Transpose(t *testing.T) {
 		if result != pair[1] {
 			t.Errorf("incorrect result, expecting '%s', got '%s'", pair[1], result)
 		}
+	}
+
+  result, err := TransposeSemitone("aaa")
+	if result != "" {
+		t.Errorf("incorrect result, expecting empty string, got %s", result)
+	}
+	if err == nil {
+		t.Errorf("expecting error, got nil")
 	}
 }
 
@@ -40,6 +48,12 @@ func Test_TransposeByInterval(t *testing.T) {
 		{n: "E", r: "G", i: 3},
 		{n: "F#", r: "G#", i: 2},
 		{n: "G", r: "C", i: 5},
+		{n: "C", r: "G", i: 7},
+		{n: "C#", r: "G", i: 6},
+		{n: "D", r: "F", i: 3},
+		{n: "D", r: "D", i: 12},
+		{n: "D", r: "C#", i: 11},
+		{n: "D", r: "C", i: 10},
 	}
 
 	for _, set := range sets {
@@ -51,5 +65,13 @@ func Test_TransposeByInterval(t *testing.T) {
 		if result != set.r {
 			t.Errorf("incorrect result, expecting '%s', got '%s'", set.r, result)
 		}
+	}
+
+	result, err := TransposeByInterval("aaa", 1)
+	if result != "" {
+		t.Errorf("incorrect result, expecting empty string, got %s", result)
+	}
+	if err == nil {
+		t.Errorf("expecting error, got nil")
 	}
 }
