@@ -29,13 +29,11 @@ func Transpose(n Note) (Note, error) {
 	l := len(SharpNotes)
 	for i, currNote := range SharpNotes {
 		if currNote == n {
-			if i == l - 1 {
+			if i == l-1 {
 				return SharpNotes[0], nil
 			}
-			return SharpNotes[i + 1], nil
+			return SharpNotes[i+1], nil
 		}
 	}
 	return "", errors.New("invalid note")
 }
-
-// TODO tests

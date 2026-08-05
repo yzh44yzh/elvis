@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"com.github.yzh44yzh.elvis/music"
+	"fmt"
 )
 
 func main() {
