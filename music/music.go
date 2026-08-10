@@ -1,7 +1,7 @@
 package music
 
 import (
-	"errors"
+	"fmt"
 )
 
 type Note string
@@ -20,7 +20,7 @@ func TransposeSemitone(n Note) (Note, error) {
 			return SharpNotes[i+1], nil
 		}
 	}
-	return "", errors.New("invalid note")
+	return "", fmt.Errorf("invalid note '%s'", n)
 }
 
 func TransposeByInterval(currNote Note, i Interval) (Note, error) {

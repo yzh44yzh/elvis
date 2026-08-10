@@ -34,6 +34,9 @@ func Test_TransposeSemitone(t *testing.T) {
 	if err == nil {
 		t.Errorf("expecting error, got nil")
 	}
+	if err.Error() != "invalid note 'aaa'" {
+		t.Errorf("invalid error value %s", err)
+	}
 }
 
 func Test_TransposeByInterval(t *testing.T) {
@@ -67,11 +70,14 @@ func Test_TransposeByInterval(t *testing.T) {
 		}
 	}
 
-	result, err := TransposeByInterval("aaa", 1)
+	result, err := TransposeByInterval("bbb", 1)
 	if result != "" {
 		t.Errorf("incorrect result, expecting empty string, got %s", result)
 	}
 	if err == nil {
 		t.Errorf("expecting error, got nil")
+	}
+	if err.Error() != "invalid note 'bbb'" {
+		t.Errorf("invalid error value %s", err)
 	}
 }
