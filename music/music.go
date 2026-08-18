@@ -1,36 +1,47 @@
 package music
 
 import (
-	"errors"
+	"fmt"
 )
 
+const octave int = 12
+
 type Note string
-type Interval int8
 
 var SharpNotes = []Note{"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"}
 var FlatNotes = []Note{"Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"}
 
 func TransposeSemitone(n Note) (Note, error) {
-	l := len(SharpNotes)
-	for i, currNote := range SharpNotes {
-		if currNote == n {
-			if i == l-1 {
-				return SharpNotes[0], nil
-			}
-			return SharpNotes[i+1], nil
-		}
-	}
-	return "", errors.New("invalid note")
+	return TransposeByInterval(n, 1)
 }
 
-func TransposeByInterval(currNote Note, i Interval) (Note, error) {
-	for i > 0 {
-		nextNote, err := TransposeSemitone(currNote)
-		if err != nil {
-			return "", err
-		}
-		currNote = nextNote
-		i -= 1
+func TransposeByInterval(note Note, interval int) (Note, error) {
+	interval = interval % octave
+
+	if interval < 0 {
+		interval = octave + interval
 	}
-	return currNote, nil
+
+	for idx, currNote := range SharpNotes {
+		if currNote == note {
+			nextNoteIdx := idx + interval
+			if nextNoteIdx >= octave {
+				nextNoteIdx -= octave
+			}
+			return SharpNotes[nextNoteIdx], nil
+		}
+	}
+	return "", fmt.Errorf("invalid note '%s'", note)
+}
+
+func TransposeNotes(notes []Note, interval int) ([]Note, error) {
+	res := make([]Note, len(notes))
+	for i, note := range notes {
+		n, err := TransposeByInterval(note, interval)
+		if err != nil {
+			return nil, err
+		}
+		res[i] = n
+	}
+	return res, nil
 }
