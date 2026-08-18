@@ -31,3 +31,15 @@ func TransposeByInterval(note Note, interval int) (Note, error) {
 	}
 	return "", fmt.Errorf("invalid note '%s'", note)
 }
+
+func TransposeNotes(notes []Note, interval int) ([]Note, error) {
+	res := make([]Note, len(notes))
+	for i, note := range notes {
+		n, err := TransposeByInterval(note, interval)
+		if err != nil {
+			return nil, err
+		}
+		res[i] = n
+	}
+	return res, nil
+}

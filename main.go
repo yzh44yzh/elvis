@@ -10,7 +10,7 @@ func main() {
 	n, _ = music.TransposeSemitone(n)
 	fmt.Println(n)
 
-	var i music.Interval = 7
+	var i int = 7
 	n, _ = music.TransposeByInterval(n, i)
 	fmt.Println(n)
 }

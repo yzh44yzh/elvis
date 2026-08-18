@@ -2,6 +2,7 @@ package music
 
 import (
 	"testing"
+	"slices"
 )
 
 func Test_TransposeSemitone(t *testing.T) {
@@ -91,4 +92,39 @@ func Test_TransposeByInterval(t *testing.T) {
 	if err.Error() != "invalid note 'bbb'" {
 		t.Errorf("invalid error value %s", err)
 	}
+}
+
+func Test_TransposeNotes(t *testing.T) {
+	notes := []Note{"C", "C#", "E", "F", "F#", "G", "A#", "B"}
+
+	type TestSet struct {
+		expect []Note
+		interval int
+	}
+
+	sets := []TestSet{
+		{
+			expect: []Note{"C#", "D", "F", "F#", "G", "G#", "B", "C"},
+			interval: 1,
+		},
+		{
+			expect: []Note{"G", "G#", "B", "C", "C#", "D", "F", "F#"},
+			interval: 7,
+		},
+		{
+			expect: []Note{"A#", "B", "D", "D#", "E", "F", "G#", "A"},
+			interval: -2,
+		},
+	}
+
+	for _, set := range sets {
+		res, err := TransposeNotes(notes, set.interval)
+		if !slices.Equal(res, set.expect) {
+			t.Errorf("incorrect result, expecting '%v', got '%v' when inteval %d", set.expect, res, set.interval)
+		}
+		if err != nil {
+			t.Errorf("incorrect err, expecting nil, got '%s'", err)
+		}
+	}
+
 }
