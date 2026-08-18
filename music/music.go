@@ -16,6 +16,9 @@ func TransposeSemitone(n Note) (Note, error) {
 
 func TransposeByInterval(note Note, interval int) (Note, error) {
 	interval = interval % octave
+	if interval < 0 {
+		interval = octave + interval
+	}
 
 	for i, currNote := range SharpNotes {
 		if currNote == note {
