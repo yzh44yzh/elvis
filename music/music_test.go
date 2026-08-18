@@ -57,6 +57,10 @@ func Test_TransposeByInterval(t *testing.T) {
 		{n: "D", r: "D", i: 12},
 		{n: "D", r: "C#", i: 11},
 		{n: "D", r: "C", i: 10},
+		{n: "C", r: "C", i: 12},
+		{n: "C", r: "C", i: 24},
+		{n: "C", r: "D", i: 14},
+		{n: "C", r: "C#", i: 25},
 	}
 
 	for _, set := range sets {

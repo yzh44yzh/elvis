@@ -24,6 +24,8 @@ func TransposeSemitone(n Note) (Note, error) {
 }
 
 func TransposeByInterval(currNote Note, i Interval) (Note, error) {
+	i = i % 12
+
 	for i > 0 {
 		nextNote, err := TransposeSemitone(currNote)
 		if err != nil {
