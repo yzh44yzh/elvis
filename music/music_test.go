@@ -43,7 +43,7 @@ func Test_TransposeByInterval(t *testing.T) {
 	type TestSet struct {
 		n Note
 		r Note
-		i Interval
+		i int
 	}
 
 	sets := []TestSet{
