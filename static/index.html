@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Elvis</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Elvis</h1>
+
+<div id="grid"></div>
+
+<script>
+  const grid = document.getElementById('grid');
+  const color1 = '#ff6600';
+  const color2 = '#ffcc00';
+
+  for(i = 0; i < 10; i++) {
+    const tile = document.createElement('div');
+    tile.dataset.id = i;
+    tile.dataset.state = 'one';
+    tile.textContent = 'Tile ' + i;
+    tile.className = 'tile';
+    tile.style.backgroundColor = color1;
+    tile.style.position = "absolute"; 
+    tile.style.left = (i * 120) + "px";
+
+    tile.addEventListener('click', (event) => {
+      const t = event.target;
+
+      if(t.dataset.state == 'one') {
+        t.dataset.state = 'two';
+        t.style.backgroundColor = color2;
+      }
+      else {
+        t.dataset.state = 'one';
+        t.style.backgroundColor = color1;
+      }
+    });
+
+    grid.appendChild(tile);
+  }
+</script>
+
+</body>
+</html>
+
