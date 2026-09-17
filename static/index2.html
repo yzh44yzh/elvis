@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tile Grid</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+      font-family: sans-serif;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(8, 80px);
+      grid-template-rows: repeat(4, 80px);
+      gap: 8px;
+    }
+    .tile {
+      width: 80px;
+      height: 80px;
+      background: red;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .tile.blue {
+      background: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const grid = document.getElementById('grid');
+
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 8; col++) {
+        const tile = document.createElement('button');
+        tile.className = 'tile';
+        tile.setAttribute('aria-label', `Tile ${row}-${col}`);
+        tile.addEventListener('click', () => {
+          tile.classList.toggle('blue');
+        });
+        grid.appendChild(tile);
+      }
+    }
+  </script>
+</body>
+</html>
